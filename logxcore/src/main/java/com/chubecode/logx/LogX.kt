@@ -92,4 +92,9 @@ object LogX {
     }
 
 
+    fun setEnable(enable: Boolean) {
+        this.enable = enable
+    }
+
+
 }

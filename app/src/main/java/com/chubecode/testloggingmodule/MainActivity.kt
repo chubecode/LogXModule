@@ -26,13 +26,13 @@ class MainActivity : AppCompatActivity() {
             LogX.d("Main", "Tien", "Click", "->LOG D")
         }
         log_e.setOnClickListener {
-            LogX.d("Main", "Tien", "Click", "->LOG E")
+            LogX.e("Main", "Tien", "Click", "->LOG E")
         }
         log_v.setOnClickListener {
-            LogX.d("Main", "Tien", "Click", "->LOG V")
+            LogX.v("Main", "Tien", "Click", "->LOG V")
         }
         log_i.setOnClickListener {
-            LogX.d("Main", "Tien", "Click", "->LOG I")
+            LogX.i("Main", "Tien", "Click", "->LOG I")
         }
         log_debug.setOnClickListener {
             //make a ThrowableException
