@@ -1,7 +1,7 @@
 package com.chubecode.logx
 
 import android.util.Log
-import java.lang.NullPointerException
+
 
 /**
  * Created by ChuTien on ${1/25/2017}.
@@ -26,13 +26,39 @@ object LogX {
 
     }
 
+
+    private fun convertArgsToString(vararg args: Any?): String {
+        var result = ""
+        if (args.isNotEmpty()) {
+
+            for (arg in args) {
+                if (arg is Array<*>) {
+                    arg.forEach {
+                        if (it is Array<*>) {
+                            result += it.joinToString("\n", ":\n")
+                        } else {
+                            result += it.toString()
+                        }
+
+                    }
+                } else {
+                    result += arg.toString()
+                }
+            }
+
+        }
+        return result
+    }
+
     fun v(tag: String, msg: String, vararg args: Any?) {
-        Log.v(tag, msg.plus(args.joinToString(":", ":")))
+        //handle arg
+        val fullLog = msg.plus(convertArgsToString(args))
+        Log.v(tag, fullLog)
         if (enable) {
             DebugHelper.getInstance()
-                .saveLog("$tag $msg ${args.joinToString(":", ":")}", singleLogMaxSize, totalLogMaxSize)
+                .saveLog("$tag $fullLog}", singleLogMaxSize, totalLogMaxSize)
             loggerLists.forEach {
-                it.sendLog(LogLevel.VERBOSE, tag, msg, args)
+                it.sendLog(LogLevel.VERBOSE, tag, fullLog)
             }
         }
 
@@ -40,45 +66,49 @@ object LogX {
     }
 
     fun d(tag: String, msg: String, vararg args: Any?) {
-        Log.d(tag, msg.plus(args.joinToString(":", ":")))
+        val fullLog = msg.plus(convertArgsToString(args))
+        Log.d(tag, fullLog)
         if (enable) {
             DebugHelper.getInstance()
-                .saveLog("$tag $msg ${args.joinToString(":", ":")}", singleLogMaxSize, totalLogMaxSize)
+                .saveLog("$tag $fullLog}", singleLogMaxSize, totalLogMaxSize)
             loggerLists.forEach {
-                it.sendLog(LogLevel.DEBUG, tag, msg, args)
+                it.sendLog(LogLevel.DEBUG, tag, fullLog)
             }
         }
     }
 
     fun i(tag: String, msg: String, vararg args: Any?) {
-        Log.i(tag, msg.plus(args.joinToString(":", ":")))
+        val fullLog = msg.plus(convertArgsToString(args))
+        Log.i(tag, fullLog)
         if (enable) {
             DebugHelper.getInstance()
-                .saveLog("$tag $msg ${args.joinToString(":", ":")}", singleLogMaxSize, totalLogMaxSize)
+                .saveLog("$tag $fullLog}", singleLogMaxSize, totalLogMaxSize)
             loggerLists.forEach {
-                it.sendLog(LogLevel.INFO, tag, msg, args)
+                it.sendLog(LogLevel.INFO, tag, fullLog)
             }
         }
     }
 
     fun w(tag: String, msg: String, vararg args: Any?) {
-        Log.w(tag, msg.plus(args.joinToString(":", ":")))
+        val fullLog = msg.plus(convertArgsToString(args))
+        Log.w(tag, fullLog)
         if (enable) {
             DebugHelper.getInstance()
-                .saveLog("$tag $msg ${args.joinToString(":", ":")}", singleLogMaxSize, totalLogMaxSize)
+                .saveLog("$tag $fullLog}", singleLogMaxSize, totalLogMaxSize)
             loggerLists.forEach {
-                it.sendLog(LogLevel.WARN, tag, msg, args)
+                it.sendLog(LogLevel.WARN, tag, fullLog)
             }
         }
     }
 
     fun e(tag: String, msg: String, vararg args: Any?) {
-        Log.e(tag, msg.plus(args.joinToString(":", ":")))
+        val fullLog = msg.plus(convertArgsToString(args))
+        Log.e(tag, fullLog)
         if (enable) {
             DebugHelper.getInstance()
-                .saveLog("$tag $msg ${args.joinToString(":", ":")}", singleLogMaxSize, totalLogMaxSize)
+                .saveLog("$tag $fullLog}", singleLogMaxSize, totalLogMaxSize)
             loggerLists.forEach {
-                it.sendLog(LogLevel.ERROR, tag, msg, args)
+                it.sendLog(LogLevel.ERROR, tag, fullLog)
             }
         }
     }

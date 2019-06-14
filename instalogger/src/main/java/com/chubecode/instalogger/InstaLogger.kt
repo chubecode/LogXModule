@@ -10,10 +10,9 @@ import java.lang.StringBuilder
 /**
  * Created by ChuTien on ${1/25/2017}.
  */
-class InstaLogger : Logger {
-    constructor(appKey: String) {
-        //do something init InstaBug
-
+class InstaLogger(appKey: String) : Logger {
+    init {
+        //init config
     }
 
     override fun sendDebugTrackingLog(e: Throwable?) {
@@ -26,8 +25,8 @@ class InstaLogger : Logger {
         }
     }
 
-    override fun sendLog(logLevel: LogLevel, tag: String, msg: String, vararg args: Any?) {
-        Log.v("InstaLogger", "$tag $msg ${args.joinToString(":", ":")}")
+    override fun sendLog(logLevel: LogLevel, tag: String, msg: String) {
+        Log.v("InstaLogger", "$tag $msg")
 
     }
 

@@ -13,7 +13,16 @@ import java.lang.StringBuilder
 /**
  * Created by ChuTien on ${1/25/2017}.
  */
-class ToastLogger : Logger {
+class ToastLogger(appKey: String) : Logger {
+
+    init {
+        val configuration = ToastLoggerConfiguration.newBuilder()
+            .setAppKey(appKey)
+            .build()
+        ToastLogger.initialize(configuration)
+    }
+
+
     override fun sendDebugTrackingLog(e: Throwable?) {
         val debugLog = StringBuilder(DebugHelper.getInstance().loadSavedLog())
         if (e != null) {
@@ -24,14 +33,7 @@ class ToastLogger : Logger {
         }
     }
 
-    constructor(appKey: String) {
-        val configuration = ToastLoggerConfiguration.newBuilder()
-            .setAppKey(appKey)
-            .build()
-        ToastLogger.initialize(configuration)
-    }
-
-    override fun sendLog(logLevel: LogLevel, tag: String, msg: String, vararg args: Any?) {
+    override fun sendLog(logLevel: LogLevel, tag: String, msg: String) {
         var toastLogLevel: com.toast.android.logger.LogLevel = com.toast.android.logger.LogLevel.NONE
         when (logLevel) {
             LogLevel.VERBOSE, LogLevel.DEBUG -> {
@@ -53,11 +55,11 @@ class ToastLogger : Logger {
         }
         val logEntry = LogEntry.newBuilder()
             .setLogLevel(toastLogLevel)
-            .setLogMessage("$tag $msg ${args.joinToString(":", ":")}")
+            .setLogMessage("$tag $msg")
             .setLogType("LOG")
             .build()
         ToastLogger.log(logEntry)
-        Log.d("ToastLogger", "$tag $msg ${args.joinToString(":", ":")}")
+        Log.d("ToastLogger", "$tag $msg")
     }
 
 
