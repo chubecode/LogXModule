@@ -76,4 +76,3 @@ LogX.sendDebugLog(Throwable(KotlinNullPointerException()))
 ```
 
 #Thanks
-chubecode
