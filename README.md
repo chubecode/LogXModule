@@ -1,4 +1,4 @@
-# LoggingModule
+# LogXModule
 
 This is a lightweight Android log component. 
 
