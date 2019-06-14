@@ -8,7 +8,7 @@ This is a lightweight Android log component.
 - [x] Support Json,Array ,List , Object
 - [x] Support ToastLogger
 - [x] Supports custom Logger  
-- [x] Support send Debug Log
+- [x] Support send saved Log
 ## Screenshots
 ![screenshots](https://github.com/chubecode/TestLogModule/blob/master/screenshoot/screenshoot.PNG "screenshots")
 
